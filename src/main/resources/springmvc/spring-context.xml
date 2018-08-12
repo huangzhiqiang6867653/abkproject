@@ -32,7 +32,7 @@
     <context:property-placeholder location="classpath*:config/cache.properties, classpath*:config/database.properties"/>
 
     <!--引入redis缓存-->
-    <!--<import resource="classpath*:cache/spring-redis.xml"/>-->
+    <import resource="classpath*:cache/spring-redis.xml"/>
 
 
 </beans>

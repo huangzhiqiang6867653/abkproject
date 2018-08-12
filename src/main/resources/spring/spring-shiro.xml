@@ -60,14 +60,14 @@
     <!--第三种：ehcache，已调试ok-->
     <!-- Spring提供的基于的Ehcache实现的缓存管理器 -->
     <!-- 若只想使用Spring自身提供的缓存器,则注释掉下面的两个关于Ehcache配置的bean,并启用上面的SimpleCacheManager即可 -->
-    <cache:annotation-driven cache-manager="ehcacheManager"/>
+    <!--<cache:annotation-driven cache-manager="ehcacheManager"/>
     <bean id="cacheManagerFactory" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
         <property name="configLocation" value="classpath:cache/ehcache.xml"/>
     </bean>
     <bean id="ehcacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
         <property name="cacheManager" ref="cacheManagerFactory"/>
-    </bean>
+    </bean>-->
 
     <!--第四种：redis-->
-    <!--<cache:annotation-driven cache-manager="redisCacheManager"/>-->
+    <cache:annotation-driven cache-manager="redisCacheManager"/>
 </beans>
