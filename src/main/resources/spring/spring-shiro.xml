@@ -45,17 +45,16 @@
     <!-- 缓存配置,这里可以使用四种缓存shrio自带、Spring自带的、ehcache、redis -->
     <!--第一种：shrio自带的，未调试-->
 
-    <!--第二种：Spring自带的，未调试-->
+    <!--第二种：Spring自带的，已调试ok-->
     <!-- Spring自己的基于java.util.concurrent.ConcurrentHashMap实现的缓存管理器(该功能是从Spring3.1开始提供的) -->
-    <!--
-    <bean id="cacheManager" class="org.springframework.cache.support.SimpleCacheManager">
+    <cache:annotation-driven cache-manager="springCacheManager"/>
+    <bean id="springCacheManager" class="org.springframework.cache.support.SimpleCacheManager">
         <property name="caches">
             <set>
-                <bean name="myCache" class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean"/>
+                <bean name="userCache" class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean"/>
             </set>
         </property>
     </bean>
-     -->
 
     <!--第三种：ehcache，已调试ok-->
     <!-- Spring提供的基于的Ehcache实现的缓存管理器 -->
@@ -69,5 +68,5 @@
     </bean>-->
 
     <!--第四种：redis，已调试ok-->
-    <cache:annotation-driven cache-manager="redisCacheManager"/>
+    <!--<cache:annotation-driven cache-manager="redisCacheManager"/>-->
 </beans>
