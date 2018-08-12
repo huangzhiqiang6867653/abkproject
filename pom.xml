@@ -7,7 +7,10 @@
   <groupId>abk-project</groupId>
   <artifactId>abk-project</artifactId>
   <version>1.0-SNAPSHOT</version>
-  <packaging>war</packaging>
+    <modules>
+        <module>generate</module>
+    </modules>
+    <packaging>pom</packaging>
 
   <name>abk-project Maven Webapp</name>
   <!-- FIXME change it to the project's website -->
@@ -175,7 +178,12 @@
           <artifactId>mysql-connector-java</artifactId>
           <version>6.0.6</version>
       </dependency>
-
+      <!-- https://mvnrepository.com/artifact/org.apache.ibatis/ibatis-core -->
+      <dependency>
+          <groupId>org.apache.ibatis</groupId>
+          <artifactId>ibatis-core</artifactId>
+          <version>3.0</version>
+      </dependency>
   </dependencies>
 
   <build>
