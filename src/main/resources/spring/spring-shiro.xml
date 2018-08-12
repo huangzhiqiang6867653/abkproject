@@ -24,6 +24,7 @@
         <!--<property name="unauthorizedUrl" value="/403"/>-->
         <property name="filterChainDefinitions">
             <value>
+                /static/** = anon
                 /login.html = anon
                 /loginUser.html = anon
                 /adminRoles.html = roles["admin"]
@@ -46,14 +47,14 @@
 
     <!--第一种：Spring自带的，已调试ok-->
     <!-- Spring自己的基于java.util.concurrent.ConcurrentHashMap实现的缓存管理器(该功能是从Spring3.1开始提供的) -->
-    <cache:annotation-driven cache-manager="springCacheManager"/>
+    <!--<cache:annotation-driven cache-manager="springCacheManager"/>
     <bean id="springCacheManager" class="org.springframework.cache.support.SimpleCacheManager">
         <property name="caches">
             <set>
                 <bean name="userCache" class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean"/>
             </set>
         </property>
-    </bean>
+    </bean>-->
 
     <!--第二种：ehcache，已调试ok-->
     <!-- Spring提供的基于的Ehcache实现的缓存管理器 -->
