@@ -17,16 +17,21 @@
 
     <servlet-mapping>
         <servlet-name>springMVCshiro</servlet-name>
-        <url-pattern>/</url-pattern>
+        <url-pattern>*.html</url-pattern>
     </servlet-mapping>
 
+    <!-- Spring配置 -->
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
 
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:springmvc/spring-context.xml,classpath:spring/spring-shiro.xml</param-value>
+        <param-value>
+            classpath*:springmvc/spring-*.xml,
+            classpath*:spring/spring-shiro.xml,
+            classpath*:spring/spring-database.xml
+        </param-value>
     </context-param>
 
     <!-- shiro 过滤器 start -->

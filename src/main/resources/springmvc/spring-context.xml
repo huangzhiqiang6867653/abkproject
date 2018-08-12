@@ -7,9 +7,8 @@
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
         http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
-
     <description>spring Configuration</description>
-
+    <!--加载配置文件-->
     <!-- 1.开启spring mvc注解模式 -->
     <mvc:annotation-driven enable-matrix-variables="true"/>
 
@@ -25,30 +24,15 @@
     </bean>
 
     <!-- 4.扫描web相关的Bean 使用Annotation自动注册Bean,只扫描@Controller -->
-    <context:component-scan base-package="com.iflytek.springmvcshiro.controller"/>
+    <context:component-scan base-package="com.iflytek.abk.controller"/>
 
     <!-- 打开aop使用aop进行权限验证,shiro注解权限，角色等也需要开启 -->
     <aop:aspectj-autoproxy/>
+    <!--5.加载配置文件-->
+    <context:property-placeholder location="classpath*:config/cache.properties, classpath*:config/database.properties"/>
 
-    <!-- 缓存配置 -->
-    <!-- 启用缓存注解功能(请将其配置在Spring主配置文件中) -->
-    <cache:annotation-driven cache-manager="cacheManager"/>
-    <!-- Spring自己的基于java.util.concurrent.ConcurrentHashMap实现的缓存管理器(该功能是从Spring3.1开始提供的) -->
-    <!--
-    <bean id="cacheManager" class="org.springframework.cache.support.SimpleCacheManager">
-        <property name="caches">
-            <set>
-                <bean name="myCache" class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean"/>
-            </set>
-        </property>
-    </bean>
-     -->
-    <!-- 5.Spring提供的基于的Ehcache实现的缓存管理器 -->
-    <!-- 若只想使用Spring自身提供的缓存器,则注释掉下面的两个关于Ehcache配置的bean,并启用上面的SimpleCacheManager即可 -->
-    <bean id="cacheManagerFactory" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
-        <property name="configLocation" value="classpath:ehcache.xml"/>
-    </bean>
-    <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
-        <property name="cacheManager" ref="cacheManagerFactory"/>
-    </bean>
+    <!--引入redis缓存-->
+    <!--<import resource="classpath*:cache/spring-redis.xml"/>-->
+
+
 </beans>

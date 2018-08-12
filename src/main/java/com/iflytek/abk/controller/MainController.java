@@ -1,4 +1,4 @@
-package com.iflytek.springmvcshiro.controller;
+package com.iflytek.abk.controller;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -20,7 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 public class MainController {
-    @RequestMapping(value = {"/", "/index"})
+    @RequestMapping(value = {"/", "/index.html"})
     public ModelAndView Index(ModelMap model) {
         ModelAndView mav = new ModelAndView("index");
         mav.addObject("message", "Hello World!");
@@ -44,7 +44,7 @@ public class MainController {
         UsernamePasswordToken token = new UsernamePasswordToken(userName, passwd);
         try {
             subject.login(token);
-            return "redirect:/index";
+            return "redirect:/index.html";
         } catch (UnknownAccountException e) {
             e.printStackTrace();
             model.addAttribute("message", "用户名错误！");
@@ -65,7 +65,7 @@ public class MainController {
     }
 
     @RequiresRoles("admin")
-    @RequestMapping(value = {"/testRoles"})
+    @RequestMapping(value = {"/testRoles.html"})
     public ModelAndView TestRoles(ModelMap model) {
         ModelAndView mav = new ModelAndView("testShiro");
         mav.addObject("message", "TestRoles OK!");

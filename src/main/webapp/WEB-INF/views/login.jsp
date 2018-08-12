@@ -11,7 +11,7 @@
     <title>登录</title>
 </head>
 <body>
-<form id="form1" name="form1" method="post" action="loginUser">
+<form id="form1" name="form1" method="post" action="/loginUser.html">
     <p align="center">用户登录</p>
     <table width="296" border="1" align="center">
         <tr>

@@ -1,9 +1,12 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cache="http://www.springframework.org/schema/cache"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-                        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+                        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+                        http://www.springframework.org/schema/cache
+                        http://www.springframework.org/schema/cache/spring-cache-3.2.xsd">
+
     <!-- Realm实现 -->
-    <bean id="userRealm" class="com.iflytek.springmvcshiro.filter.CustomRealm">
+    <bean id="userRealm" class="com.iflytek.abk.filter.CustomRealm">
         <!--<property name="credentialsMatcher" ref="credentialsMatcher"/>-->
     </bean>
 
@@ -21,9 +24,9 @@
         <!--<property name="unauthorizedUrl" value="/403"/>-->
         <property name="filterChainDefinitions">
             <value>
-                /login = anon
-                /loginUser = anon
-                /adminRoles = roles["admin"]
+                /login.html = anon
+                /loginUser.html = anon
+                /adminRoles.html = roles["admin"]
                 /** = authc
             </value>
         </property>
@@ -37,4 +40,34 @@
     <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
         <property name="securityManager" ref="securityManager"/>
     </bean>
+
+    <!-- 启用缓存注解功能(请将其配置在Spring主配置文件中) -->
+    <!-- 缓存配置,这里可以使用四种缓存shrio自带、Spring自带的、ehcache、redis -->
+    <!--第一种：shrio自带的-->
+
+    <!--第二种：Spring自带的-->
+    <!-- Spring自己的基于java.util.concurrent.ConcurrentHashMap实现的缓存管理器(该功能是从Spring3.1开始提供的) -->
+    <!--
+    <bean id="cacheManager" class="org.springframework.cache.support.SimpleCacheManager">
+        <property name="caches">
+            <set>
+                <bean name="myCache" class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean"/>
+            </set>
+        </property>
+    </bean>
+     -->
+
+    <!--第三种：ehcache，已调试ok-->
+    <!-- Spring提供的基于的Ehcache实现的缓存管理器 -->
+    <!-- 若只想使用Spring自身提供的缓存器,则注释掉下面的两个关于Ehcache配置的bean,并启用上面的SimpleCacheManager即可 -->
+    <cache:annotation-driven cache-manager="ehcacheManager"/>
+    <bean id="cacheManagerFactory" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+        <property name="configLocation" value="classpath:cache/ehcache.xml"/>
+    </bean>
+    <bean id="ehcacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
+        <property name="cacheManager" ref="cacheManagerFactory"/>
+    </bean>
+
+    <!--第四种：redis-->
+    <!--<cache:annotation-driven cache-manager="redisCacheManager"/>-->
 </beans>

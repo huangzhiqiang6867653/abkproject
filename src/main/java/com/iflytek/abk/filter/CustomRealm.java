@@ -1,4 +1,4 @@
-package com.iflytek.springmvcshiro.filter;
+package com.iflytek.abk.filter;
 
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
